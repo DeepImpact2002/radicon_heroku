@@ -1,4 +1,60 @@
 <html>
+<body>
     <h1><%= title %><h1>
-    hello from index.ejs!
+    Let's control "YOUR" radicon!
+
+    <div class="container">
+        <table>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p id="forward">forward</p>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="left">left</p>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <p id="right">right</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p id="backward">backward</p>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+<!-- JS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+    var socket = io();
+    $('form').submit(function(){
+        // メッセージを送信する
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+    });
+    // メッセージを受信する
+    socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+    });
+    </script>
+
+</body>
 </html>
